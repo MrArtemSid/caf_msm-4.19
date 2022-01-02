@@ -2564,14 +2564,14 @@ static int tas2559_load_calibration(struct tas2559_priv *pTAS2559,	char *pFileNa
 
 	fs = get_fs();
 	set_fs(KERNEL_DS);
-	nFile = sys_open(pFileName, O_RDONLY, 0);
+	nFile = ksys_open(pFileName, O_RDONLY, 0);
 
 	dev_info(pTAS2559->dev, "TAS2559 calibration file = %s, handle = %d\n",
 		 pFileName, nFile);
 
 	if (nFile >= 0) {
-		nSize = sys_read(nFile, pBuffer, 1000);
-		sys_close(nFile);
+		nSize = ksys_read(nFile, pBuffer, 1000);
+		ksys_close(nFile);
 	} else {
 		dev_err(pTAS2559->dev, "TAS2559 cannot open calibration file: %s\n",
 			pFileName);
